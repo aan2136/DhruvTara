@@ -1,0 +1,20 @@
+{
+  "model": "RandomForest",
+  "accuracy": 91.9,
+  "cv_accuracy": 90.44,
+  "features": [
+    "hour",
+    "day_of_week",
+    "police_distance",
+    "has_lights",
+    "has_shops",
+    "has_hospital",
+    "speed",
+    "area_population",
+    "is_isolated",
+    "near_highway",
+    "stopped_duration"
+  ],
+  "samples": 5000,
+  "dangerous_pct": 62.3
+}

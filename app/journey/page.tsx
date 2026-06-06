@@ -5,11 +5,11 @@ export default function Journey() {
   const [selected, setSelected] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [destination, setDestination] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+ const [suggestions, setSuggestions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [selected_place, setSelectedPlace] = useState(null);
-  const timerRef = useRef(null);
+  const [selected_place, setSelectedPlace] = useState<any>(null);
+  const timerRef = useRef<any>(null);
 
   const modes = [
     {id:"walking",icon:"🚶",label:"Walking"},
@@ -20,10 +20,22 @@ export default function Journey() {
     {id:"metro",icon:"🚇",label:"Metro"},
   ];
 
-  const inp = {width:"100%",maxWidth:"360px",padding:"14px",marginBottom:"16px",borderRadius:"12px",border:"1px solid #7c3aed",backgroundColor:"#111827",color:"white",fontSize:"16px",outline:"none",boxSizing:"border-box"};
+ const inp = {
+  width:"100%",
+  maxWidth:"360px",
+  padding:"14px",
+  marginBottom:"16px",
+  borderRadius:"12px",
+  border:"1px solid #7c3aed",
+  backgroundColor:"#111827",
+  color:"white",
+  fontSize:"16px",
+  outline:"none",
+  boxSizing:"border-box" as const
+};
   const btn = {backgroundColor:"#7c3aed",color:"white",padding:"16px 40px",borderRadius:"50px",border:"none",fontWeight:"600",fontSize:"18px",cursor:"pointer",width:"100%",maxWidth:"360px",boxShadow:"0 0 30px #7c3aed55"};
 
-  async function searchDestination(query) {
+  async function searchDestination(query: string) {
     setDestination(query);
     setSelectedPlace(null);
     setSuggestions([]);
@@ -33,12 +45,11 @@ export default function Journey() {
     timerRef.current = setTimeout(async () => {
       try {
         // Try multiple search strategies for best results
-        const searches = await Promise.all([
-          // Strategy 1: Direct search in India
-          fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&countrycodes=in&addressdetails=1&accept-language=en`).then(r=>r.json()),
-          // Strategy 2: Add India to query
-          fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query+", India")}&format=json&limit=5&countrycodes=in&addressdetails=1&accept-language=en`).then(r=>r.json()),
-        ]);
+       const searches = await Promise.all([
+  fetch(`/api/search?q=${encodeURIComponent(query)}`).then(r => r.json()),
+
+  fetch(`/api/search?q=${encodeURIComponent(query + ", India")}`).then(r => r.json()),
+]);
 
         // Merge and deduplicate results
         const seen = new Set();
@@ -60,7 +71,9 @@ export default function Journey() {
     }, 400);
   }
 
-  function getPlaceName(s) {
+  
+  
+function getPlaceName(s: any) {
     const a = s.address || {};
     // Build name from most specific to least specific
     const name = a.amenity || a.shop || a.office || a.tourism ||
@@ -74,7 +87,7 @@ export default function Journey() {
     return parts.length > 0 ? parts.slice(0,4).join(", ") : s.display_name.split(",").slice(0,3).join(",").trim();
   }
 
-  function getTypeIcon(s) {
+  function getTypeIcon(s: any) {
     const a = s.address || {};
     const cls = s.class || "";
     const type = s.type || "";
@@ -93,7 +106,7 @@ export default function Journey() {
     return "📍";
   }
 
-  function selectPlace(s) {
+  function selectPlace(s: any) {
     const name = getPlaceName(s);
     setDestination(name);
     setSelectedPlace(s);
@@ -148,7 +161,7 @@ export default function Journey() {
 
         {suggestions.length > 0 && (
           <div style={{position:"absolute",top:"100%",left:0,right:0,backgroundColor:"#0d0d20",border:"1px solid #7c3aed44",borderRadius:"16px",zIndex:1000,marginTop:"6px",maxHeight:"350px",overflowY:"auto",boxShadow:"0 8px 32px #00000099"}}>
-            {suggestions.map((s,i) => (
+            {suggestions.map((s: any, i: number) => (
               <div key={i} className="suggestion" onClick={()=>selectPlace(s)}
                 style={{padding:"13px 16px",cursor:"pointer",borderBottom:i<suggestions.length-1?"1px solid #1f2937":"none",display:"flex",alignItems:"flex-start",gap:"12px",backgroundColor:"transparent",transition:"background 0.15s"}}
               >
