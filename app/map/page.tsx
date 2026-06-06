@@ -60,7 +60,7 @@ export default function Map() {
 
   async function checkMLHealth() {
     try {
-      const res = await fetch('http://localhost:5000/health');
+      const res = await fetch('https://aan2136421-dhruv-tara-ml.hf.space/');
       const data = await res.json();
       setMlStatus(`ML: ${data.model} (${data.accuracy}% acc)`);
     } catch(e) {
@@ -138,7 +138,7 @@ export default function Map() {
   async function scoreRouteML(coords) {
     try {
       const sample = coords.filter((_,i)=>i%Math.ceil(coords.length/10)===0).slice(0,10);
-      const res = await fetch('http://localhost:5000/score-route',{
+      const res = await fetch('https://aan2136421-dhruv-tara-ml.hf.space/run/score_route',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({coords: sample})
       });
