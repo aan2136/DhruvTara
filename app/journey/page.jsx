@@ -31,11 +31,11 @@ export default function Journey() {
   color:"white",
   fontSize:"16px",
   outline:"none",
-  boxSizing:"border-box" as const
+  boxSizing:"border-box" 
 };
   const btn = {backgroundColor:"#7c3aed",color:"white",padding:"16px 40px",borderRadius:"50px",border:"none",fontWeight:"600",fontSize:"18px",cursor:"pointer",width:"100%",maxWidth:"360px",boxShadow:"0 0 30px #7c3aed55"};
 
-  async function searchDestination(query: string) {
+  async function searchDestination(query) {
     setDestination(query);
     setSelectedPlace(null);
     setSuggestions([]);
@@ -73,7 +73,7 @@ export default function Journey() {
 
   
   
-function getPlaceName(s: any) {
+function getPlaceName(s) {
     const a = s.address || {};
     // Build name from most specific to least specific
     const name = a.amenity || a.shop || a.office || a.tourism ||
@@ -87,7 +87,7 @@ function getPlaceName(s: any) {
     return parts.length > 0 ? parts.slice(0,4).join(", ") : s.display_name.split(",").slice(0,3).join(",").trim();
   }
 
-  function getTypeIcon(s: any) {
+  function getTypeIcon(s) {
     const a = s.address || {};
     const cls = s.class || "";
     const type = s.type || "";
@@ -106,7 +106,7 @@ function getPlaceName(s: any) {
     return "📍";
   }
 
-  function selectPlace(s: any) {
+  function selectPlace(s) {
     const name = getPlaceName(s);
     setDestination(name);
     setSelectedPlace(s);
@@ -161,7 +161,7 @@ function getPlaceName(s: any) {
 
         {suggestions.length > 0 && (
           <div style={{position:"absolute",top:"100%",left:0,right:0,backgroundColor:"#0d0d20",border:"1px solid #7c3aed44",borderRadius:"16px",zIndex:1000,marginTop:"6px",maxHeight:"350px",overflowY:"auto",boxShadow:"0 8px 32px #00000099"}}>
-            {suggestions.map((s: any, i: number) => (
+            {suggestions.map((s, i) => (
               <div key={i} className="suggestion" onClick={()=>selectPlace(s)}
                 style={{padding:"13px 16px",cursor:"pointer",borderBottom:i<suggestions.length-1?"1px solid #1f2937":"none",display:"flex",alignItems:"flex-start",gap:"12px",backgroundColor:"transparent",transition:"background 0.15s"}}
               >
