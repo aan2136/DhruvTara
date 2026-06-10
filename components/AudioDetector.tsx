@@ -1,1 +1,1 @@
-export default function AudioDetector(){return null;}
+export default function AudioDetector({onAnomaly,enabled}:any){return null;}
