@@ -37,12 +37,12 @@ export default function Map() {
   const lastAccelRef = useRef({x:0,y:0,z:0});
   const shakesRef = useRef([]);
   const keywordHitsRef = useRef([]);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef(null);
   const keywordListeningRef = useRef(false);
-  const sosTimerRef = useRef<any>(null);
+  const sosTimerRef = useRef(null);
   const stepsRef = useRef([]);
   const lastSpeedRef = useRef(0);
-  const userMarkerRef = useRef<any>(null);
+  const userMarkerRef = useRef(null);
   const routeTotalDistRef = useRef(0);
 
   useEffect(() => {

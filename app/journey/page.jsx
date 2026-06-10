@@ -5,11 +5,11 @@ export default function Journey() {
   const [selected, setSelected] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [destination, setDestination] = useState("");
- const [suggestions, setSuggestions] = useState<any[]>([]);
+ const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [selected_place, setSelectedPlace] = useState<any>(null);
-  const timerRef = useRef<any>(null);
+  const [selected_place, setSelectedPlace] = useState(null);
+  const timerRef = useRef(null);
 
   const modes = [
     {id:"walking",icon:"🚶",label:"Walking"},
